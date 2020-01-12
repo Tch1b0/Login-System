@@ -21,6 +21,7 @@ while Password == True:
     Password_in = ("("+str(Password_input)+")")
     if Password_in in info_contents:
         print ("You are now logged in")
+        quit()
     else:
         print("wrong password")
 
