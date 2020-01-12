@@ -33,7 +33,7 @@ while Login:
 
     while Password == True:
         Password_input = input("Password:\n")         #here the program asks for your password
-        Password_in = ("("+str(Password_input)+")") #the 'Password_input' gets two brackets to distinguish between username and password
+        Password_in = (str(Username)+"("+str(Password_input)+")") #the 'Password_input' gets two brackets to distinguish between username and password
         if Password_in in info_contents:              #if the password is in the 'information.txt'...
             print ("You are now logged in")           #... you get logged in 
             quit()
