@@ -5,16 +5,24 @@ os.chdir(r'C:\Users\User\Documents\Pgit\Login-system')
 
 info = open('information.txt', 'r')
 
-Login = True
-while Login:
-    print ("Username:\n")
-    Username = input()
-    if Username.lower() in info.read():
-        print ("You are on the list!")
-        info.close()
-    elif Username.lower() not in info.read():
-        print ("You are not registered right now!")
-        info.close()
-        quit()
+Password = False
+
+info_contents = info.read()
+
+Username = input("Username?\n")
+if Username in info_contents:
+    sleep (1)
+    Password = True
+else:
+    print ("You are not regitstered")
+
+while Password == True:
+    Password_input = input("Password\n")
+    Password_in = ("("+str(Password_input)+")")
+    if Password_in in info_contents:
+        print ("You are now logged in")
+    else:
+        print("wrong password")
 
 info.close()
+quit()
