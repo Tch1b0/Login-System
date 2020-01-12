@@ -3,7 +3,7 @@ import os
 
 os.chdir(r'C:\Users\User\Documents\Pgit\Login-system')
 
-info = open('information.txt', 'r')
+info = open('information.txt', 'r+')
 
 Password = False
 Login = True
@@ -22,7 +22,7 @@ while Login:
         sleep (1)
         print ("Do you want to register?")
         register_answer = input()
-        if register_answer is "yes"or"y":
+        if register_answer == "yes"or"y":
             register = True
 
     while Password == True:
@@ -36,6 +36,15 @@ while Login:
             print("wrong password")
     
     while register:
+        which_Username = input("Which Username do you want to have?\n")
+        new_Username = ("{"+str(which_Username)+"}")
+        info.write(new_Username)
+        sleep (0.5)
+        which_Password = input("Which passoword do you want to have?\n")
+        new_Password = ("{"+str(which_Password)+"}")
+        info.write(new_Password)
+        sleep (1)
+        print ("Your account is now set up!")
         info.close
         quit()
 
