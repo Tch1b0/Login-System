@@ -1,21 +1,22 @@
 from time import sleep
 import os
 
-os.chdir(r'C:\Users\User\Documents\Pgit\Login-system')
+current_path = os.path.dirname(os.path.realpath(__file__))   # Get the current path
+os.chdir(current_path)                                       #the current path gets set 
 
 info = open('information.txt', 'r+')
 
 Password = False                                      #the password activity is 'False' because you fist need to sign in your username
 Login = True                                          
-register1 = False                                      #register is off at the beginning
-register2 = False                                      #register is off at the beginning
-error = False
+Register1 = False                                     #Register is off at the beginning
+Register2 = False                                     #Register is off at the beginning
+Error = False
 
 info_contents = info.read()                           
 
 while Login:
     Username_input = input("Username:\n")             #the username gets asked
-    Username = ("{"+str(Username_input)+"}")    #the username gets two curly brackets to distinguish between username and password
+    Username = ("{"+str(Username_input.lower())+"}")    #the username gets two curly brackets to distinguish between username and password
 
     if Username in info_contents:                     #if the username is in the 'information.txt'... 
         sleep (1)           
@@ -28,7 +29,7 @@ while Login:
         if register_answer.lower() == "yes"or"y":
             register1 = True                           #if you have answered yes, 'register1' gets activated
         else:
-            info.close
+            info.close()
             quit()
 
     while Password == True:
@@ -36,8 +37,8 @@ while Login:
         Password_in = (str(Username)+"("+str(Password_input)+")") #the 'Password_input' gets two brackets to distinguish between username and password
         if Password_in in info_contents:              #if the password is in the 'information.txt'...
             print ("You are now logged in")           #... you get logged in 
-            quit()
-            info.close()                              
+            info.close()
+            quit()                             
         else:                                         #if the password can't get found in the 'information.txt'
             print("wrong password")                   #you have to try again
     
@@ -46,7 +47,7 @@ while Login:
         if which_Username.lower() in info_contents:
             print ("that name already is registered")
             press_any_key = input("press any key to move on\n")
-            error = True
+            Error = True
         elif which_Username not in info_contents:
             register2 = True
         while register2:
@@ -58,13 +59,13 @@ while Login:
             info.write(new_Password.lower())
             info.write(".")
             sleep (1)
-            if error:
+            if Error:
                 print ("sorry, we couldn't set up your account.\n please try again.")
-                info.close
+                info.close()
                 quit()
             else:
                 print ("Your account is now set up!")
-                info.close
+                info.close()
                 quit()
 
 
