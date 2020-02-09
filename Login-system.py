@@ -15,6 +15,13 @@ Wrong_Password = 0
 
 info_contents = info.read()                           
 
+def GeneratePassword():
+    import random 
+    PasswordChars = ["a","b","c","*","#","`","+","-","<",">","%"]
+    PasswordGenerated = random.choice(PasswordChars)+random.choice(PasswordChars)+random.choice(PasswordChars)+random.choice(PasswordChars)+random.choice(PasswordChars)+random.choice(PasswordChars)+random.choice(PasswordChars)
+    print (PasswordGenerated)
+    return PasswordGenerated
+
 while login:
     username_input = input("Username:\n")             #the username gets asked
     username = ("{"+str(username_input.lower())+"}")    #the username gets two curly brackets to distinguish between username and password
@@ -38,7 +45,7 @@ while login:
             exit("access denied")
         password_input = input("Password:\n")         #here the program asks for your password
         password_in = (str(username)+"("+str(password_input)+")") #the 'Password_input' gets two brackets to distinguish between username and password
-        if password_in in info_contents:              #if the password is in the 'information.txt'...
+        if password_in.lower() in info_contents:      #if the password is in the 'information.txt'...
             print ("You are now logged in")           #... you get logged in 
             info.close()
             quit()                             
@@ -47,31 +54,53 @@ while login:
             Wrong_Password = Wrong_Password + 1
     
     while register1:                                   #while regiser is active...
-        which_username = input("Which Username do you want to have?\n") #... you choose a Username
-        if which_username.lower() in info_contents:
+        which_Username = input("Which Username do you want to have?\n") #... you choose a Username
+        if which_Username.lower() in info_contents:
             print ("that name already is registered")
             press_any_key = input("press any key to move on\n")
             error = True
-        elif which_username not in info_contents:
+        elif which_Username not in info_contents:
             register2 = True
         while register2:
-            new_username = ("{"+str(which_username)+"}")            #... the username gets written in with curly brackets
-            info.write(new_username.lower())                        #... the username gets written in the 'information.txt'
-            sleep (0.5) 
-            which_password = input("Which passoword do you want to have?\n")#here you can choose your password.
-            new_password = ("("+str(which_Password)+")")            #the password gets brackets
-            info.write(new_password.lower())
-            info.write(".")
-            sleep (1)
-            if error:
-                print ("sorry, we couldn't set up your account.\n please try again.")
-                info.close()
-                quit()
-            else:
-                print ("Your account is now set up!")
-                info.close()
-                quit()
+            new_Username = ("{"+str(which_Username)+"}")            #... the username gets written in with curly brackets
+            info.write(new_Username.lower())                        #... the username gets written in the 'information.txt'
 
+            GenOrWrite = input("Do you want to generate or write a password?\n")
+
+            sleep (0.5) 
+
+
+            if GenOrWrite.lower()[0] == "w":    
+                which_Password = input("Which password do you want to have?\n")#here you can choose your password.
+                new_Password = ("("+str(which_Password)+")")            #the password gets brackets
+                info.write(new_Password.lower())
+                info.write(".")
+                sleep (1)
+                if error:
+                    print ("sorry, we couldn't set up your account.\n please try again later.")
+                    info.close()
+                    quit()
+                else:
+                    print ("Your account is now set up!")
+                    info.close()
+                    quit()
+
+            if GenOrWrite.lower()[0] == "g":
+
+                FinalPassword = GeneratePassword()                  #'Final Password' is the same as the result of the 'GeneratePassword' function
+
+                new_Password = ("("+str(FinalPassword)+")")         #the generated password gets brackets
+                info.write(new_Password)                            #the password gets written in 'information.txt'
+                info.write(".")
+                sleep (1)
+                if error:
+                    print ("sorry, we couldn't set up your account.\n please try again.")
+                    info.close()
+                    quit()
+                else:
+                    print ("Your account is now set up!")
+                    info.close()
+                    quit()   
 
 info.close()
 quit()
