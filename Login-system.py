@@ -15,10 +15,12 @@ Wrong_Password = 0
 
 info_contents = info.read()                           
 
-def GeneratePassword():
+def GeneratePassword(RandomPasswordChars):
     import random 
-    PasswordChars = ["a","b","c","*","#","`","+","-","<",">","%"]
-    PasswordGenerated = random.choice(PasswordChars)+random.choice(PasswordChars)+random.choice(PasswordChars)+random.choice(PasswordChars)+random.choice(PasswordChars)+random.choice(PasswordChars)+random.choice(PasswordChars)
+    PasswordGenerated = ""
+    PasswordChars = ["a","b","c","*","#","`","+","-","<",">","%","z","r","_"]
+    for x in range(RandomPasswordChars):
+        PasswordGenerated += random.choice(PasswordChars)
     print (PasswordGenerated)
     return PasswordGenerated
 
@@ -43,6 +45,7 @@ while login:
     while password == True:
         if Wrong_Password == 3:
             exit("access denied")
+
         password_input = input("Password:\n")         #here the program asks for your password
         password_in = (str(username)+"("+str(password_input)+")") #the 'Password_input' gets two brackets to distinguish between username and password
         if password_in.lower() in info_contents:      #if the password is in the 'information.txt'...
@@ -86,8 +89,10 @@ while login:
                     quit()
 
             if GenOrWrite.lower()[0] == "g":
-
-                FinalPassword = GeneratePassword()                  #'Final Password' is the same as the result of the 'GeneratePassword' function
+                
+                RandomCharsInput = input("How many characters you want your password to have?\n")
+                RandomCharsInput = int(RandomCharsInput)
+                FinalPassword = GeneratePassword(RandomCharsInput)  #'Final Password' is the same as the result of the 'GeneratePassword' function
 
                 new_Password = ("("+str(FinalPassword)+")")         #the generated password gets brackets
                 info.write(new_Password)                            #the password gets written in 'information.txt'
